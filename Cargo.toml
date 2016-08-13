@@ -1,0 +1,6 @@
+[package]
+name = "rustmine"
+version = "0.1.0"
+authors = ["alex <alex@pdp7.net>"]
+
+[dependencies]
