@@ -74,6 +74,11 @@ fn main() {
         board[x][y].known = true;
         if board[x][y].has_mine {
             println!("You lose");
+            for y in 0..board.len() {
+                for x in 0..board[0].len() {
+                    board[x][y].known = true;
+                }
+            }
             print_board(&board);
             process::exit(1);
         }
