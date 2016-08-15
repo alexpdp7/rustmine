@@ -7,6 +7,9 @@ struct Position {
     known: bool,
 }
 
+const OFFSETS: [(i32, i32); 8] = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)];
+
+
 fn print_board(board: &Vec<Vec<Position>>) {
     for y in 0..board.len() {
         for x in 0..board[0].len() {
@@ -42,9 +45,8 @@ fn done(board: &Vec<Vec<Position>>) -> bool {
 }
 
 fn count_neighbors(board: &Vec<Vec<Position>>, x: usize, y: usize) -> i32 {
-    let offsets: [(i32, i32); 8] = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)];
     let mut result = 0;
-    for &(ox, oy) in offsets.iter() {
+    for &(ox, oy) in OFFSETS.iter() {
         let px = x as i32 + ox;
         let py = y as i32 + oy;
         if px >= 0 && (px as usize) < board[0].len() && py >= 0 && (py as usize) < board.len() && board[px as usize][py as usize].has_mine {
