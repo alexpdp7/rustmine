@@ -1,6 +1,11 @@
 use std::io;
 use std::process;
 
+extern crate rand;
+
+use rand::distributions::{Range, IndependentSample};
+
+
 #[derive(Copy, Clone)]
 struct Position {
     has_mine: bool,
@@ -59,8 +64,13 @@ fn count_neighbors(board: &Vec<Vec<Position>>, x: usize, y: usize) -> i32 {
 fn main() {
     let mut board = vec![vec![Position{has_mine: false, known: false}; 4]; 4];
 
-    board[2][2].has_mine = true;
-    board[3][3].has_mine = true;
+    let mut rng = rand::thread_rng();
+    let h_range = Range::new(0, board.len());
+    let v_range = Range::new(0, board[0].len());
+
+    for _ in 0..3 {
+        board[h_range.ind_sample(&mut rng)][v_range.ind_sample(&mut rng)].has_mine = true;
+    }
 
     loop {
         print_board(&board);
