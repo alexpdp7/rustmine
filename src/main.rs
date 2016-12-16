@@ -12,7 +12,8 @@ struct Position {
     known: bool,
 }
 
-const OFFSETS: [(i32, i32); 8] = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)];
+const OFFSETS: [(i32, i32); 8] = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0),
+                                  (1, 1)];
 
 
 fn print_board(board: &Vec<Vec<Position>>) {
@@ -20,16 +21,13 @@ fn print_board(board: &Vec<Vec<Position>>) {
         for x in 0..board[0].len() {
             if !board[x][y].known {
                 print!(".")
-            }
-            else if board[x][y].has_mine{
+            } else if board[x][y].has_mine {
                 print!("!")
-            }
-            else {
+            } else {
                 let neighbors = count_neighbors(board, x, y);
                 if neighbors == 0 {
                     print!(" ");
-                }
-                else {
+                } else {
                     print!("{}", neighbors);
                 }
             }
@@ -54,7 +52,8 @@ fn count_neighbors(board: &Vec<Vec<Position>>, x: usize, y: usize) -> i32 {
     for &(ox, oy) in OFFSETS.iter() {
         let px = x as i32 + ox;
         let py = y as i32 + oy;
-        if px >= 0 && (px as usize) < board[0].len() && py >= 0 && (py as usize) < board.len() && board[px as usize][py as usize].has_mine {
+        if px >= 0 && (px as usize) < board[0].len() && py >= 0 && (py as usize) < board.len() &&
+           board[px as usize][py as usize].has_mine {
             result += 1;
         }
     }
